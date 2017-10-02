@@ -12,6 +12,12 @@ def _certificates(args):
     return res
 
 
+def _data(args):
+    c = commands.DataCommand()
+    res = c.do_action(args.action, *args.target)
+    return res
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--api-id", type=str, help="Censys API ID")
@@ -22,6 +28,11 @@ def main():
     parser_certs.add_argument('action', choices=['view'])
     parser_certs.add_argument('target', help="X")
     parser_certs.set_defaults(func=_certificates)
+
+    parser_data = subparsers.add_parser('data')
+    parser_data.add_argument('action', choices=['series', 'view'])
+    parser_data.add_argument('target', help="X", nargs="*")
+    parser_data.set_defaults(func=_data)
 
     args = parser.parse_args()
     res = args.func(args)
