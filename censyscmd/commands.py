@@ -52,3 +52,6 @@ class CertificateCommand(Command):
     def view(self, sha256fp):
         out = self._censys.view(sha256fp)
         return out
+
+    def search(self, query):
+        return list(self._censys.search(query, fields=["parsed.fingerprint_sha256"]))
