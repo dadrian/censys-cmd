@@ -1,5 +1,5 @@
 VIRTUALENV_DIR ?= ./env
-PYTHON ?= python2
+PYTHON ?= python3
 PIP=$(VIRTUALENV_DIR)/bin/pip
 VIRTUAL_PYTHON=$(VIRTUALENV_DIR)/bin/python
 
