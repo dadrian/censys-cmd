@@ -69,3 +69,7 @@ class IPv4Command(Command):
     def view(self, ip):
         out = self._censys.view(ip)
         return out
+
+    def search(self, query):
+        out = self._censys.search(query, fields=['ip', 'protocols'])
+        return list(out)

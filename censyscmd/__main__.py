@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 
 import argparse
 import json
 
-from censyscmd import commands
+from . import commands
 
 
 def _ipv4(args):
@@ -48,8 +49,10 @@ def main():
 
     args = parser.parse_args()
     res = args.func(args)
-    out = json.dumps(res)
-    print out
+    if not isinstance(res, list):
+        res = [res]
+    for obj in res:
+        print(json.dumps(obj))
 
 
 if __name__ == "__main__":
