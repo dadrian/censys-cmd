@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import censys.certificates
 import censys.data
+import censys.ipv4
 
 
 class Command(object):
@@ -55,3 +56,16 @@ class CertificateCommand(Command):
 
     def search(self, query):
         return list(self._censys.search(query, fields=["parsed.fingerprint_sha256"]))
+
+
+class IPv4Command(Command):
+
+    def __init__(self, api_id=None, api_secret=None, *args, **kwargs):
+        super(IPv4Command, self).__init__(
+            api_id=api_id, api_secret=api_secret, *args, **kwargs)
+        self._censys = censys.ipv4.CensysIPv4(
+            api_id=self._api_id, api_secret=self._api_secret)
+
+    def view(self, ip):
+        out = self._censys.view(ip)
+        return out

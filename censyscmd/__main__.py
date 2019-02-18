@@ -6,6 +6,12 @@ import json
 from censyscmd import commands
 
 
+def _ipv4(args):
+    c = commands.IPv4Command()
+    res = c.do_action(args.action, args.target)
+    return res
+
+
 def _certificates(args):
     c = commands.CertificateCommand()
     res = c.do_action(args.action, args.target)
@@ -24,6 +30,12 @@ def main():
     parser.add_argument("--api-secret", type=str, help="Censys API secret")
 
     subparsers = parser.add_subparsers(help="Censys target")
+
+    parser_ipv4 = subparsers.add_parser('ipv4')
+    parser_ipv4.add_argument('action', choices=['view', 'search'])
+    parser_ipv4.add_argument('target', help="X")
+    parser_ipv4.set_defaults(func=_ipv4)
+
     parser_certs = subparsers.add_parser('certificates')
     parser_certs.add_argument('action', choices=['view', 'search'])
     parser_certs.add_argument('target', help="X")
